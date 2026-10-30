@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import com.ejemplo.crudpersona.ui.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ejemplo.crudpersona.controller.ERQZSunarpController" spacing="16" styleClass="view-root">
+ <ResponsiveFlowPane styleClass="tarjeta, module-header" alignment="CENTER_LEFT">
+  <StackPane styleClass="header-icon"><FontIcon iconLiteral="fth-file-text" iconSize="22"/></StackPane>
+  <VBox spacing="4"><Label text="Motos y expedientes SUNARP" styleClass="title-4"/><Label text="Motos nuevas importadas · Primera inscripcion y transferencia" styleClass="text-subtle" wrapText="true"/></VBox>
+  <Button fx:id="btnRegistrarMoto" text="Registrar moto" onAction="#onRegistrar" styleClass="btn-primario"><graphic><FontIcon iconLiteral="fth-plus"/></graphic></Button>
+  <ExportarMenu fx:id="exportarMotos"/>
+ </ResponsiveFlowPane>
+ <Label fx:id="lblAdvertenciaSunarp" text="Seguimiento interno. No presenta documentos a SUNARP ni comprueba automaticamente su inscripcion. Los estados se registran con sustento documental." styleClass="chip-info" wrapText="true"/>
+ <ResponsiveFlowPane styleClass="action-strip" alignment="CENTER_LEFT">
+  <TextField fx:id="txtBuscarMoto" promptText="VIN, motor, modelo, placa o titular" prefWidth="340" onAction="#onBuscar"/>
+  <Button text="Buscar" onAction="#onBuscar" styleClass="btn-secundario"><graphic><FontIcon iconLiteral="fth-search"/></graphic></Button>
+  <Button text="Actualizar" onAction="#onBuscar" styleClass="btn-secundario"><graphic><FontIcon iconLiteral="fth-refresh-cw"/></graphic></Button>
+  <Label fx:id="lblResumenMotos" styleClass="text-subtle"/>
+ </ResponsiveFlowPane>
+ <TableView fx:id="tablaMotos" VBox.vgrow="ALWAYS" styleClass="tabla, fit-columns"><columns>
+  <TableColumn fx:id="colVinMoto" text="VIN / Chasis" prefWidth="175" minWidth="155"/>
+  <TableColumn fx:id="colDescripcionMoto" text="Marca y modelo" prefWidth="190"/>
+  <TableColumn fx:id="colDuaMoto" text="DUA / DAM" prefWidth="145"/>
+  <TableColumn fx:id="colPlacaMoto" text="Placa" prefWidth="80"/>
+  <TableColumn fx:id="colTitularMoto" text="Titular informado" prefWidth="150"/>
+  <TableColumn fx:id="colAccionesMoto" text="Acciones" prefWidth="110" minWidth="100"/>
+ </columns><columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy></TableView>
+</VBox>

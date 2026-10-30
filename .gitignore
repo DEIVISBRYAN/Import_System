@@ -1,0 +1,31 @@
+.local/
+target/
+.local-distribucion/
+.idea/
+entregables/
+output/
+outputs/
+*.zip
+*.exe
+*.dump
+*.log
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
+# Archivos temporales y configuraciones privadas
+tmp/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+ACCESO_INICIAL.txt
+
+# Documentacion personal: se conserva localmente, no se publica.
+MANUAL_*.md
+docs/manuales/
+docs/DISTRIBUCION_EQUIPO.md
+scripts/docs/

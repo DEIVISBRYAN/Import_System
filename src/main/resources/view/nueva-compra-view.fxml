@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import com.ejemplo.crudpersona.ui.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox spacing="14" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.ejemplo.crudpersona.controller.DBQPNuevaCompraController"
+      prefWidth="1280" prefHeight="720" styleClass="view-root">
+    <fx:define><ToggleGroup fx:id="modoDua"/></fx:define>
+
+    <VBox spacing="14" styleClass="tarjeta, module-header">
+        <padding><Insets top="18" right="20" bottom="18" left="20"/></padding>
+        <ResponsiveFlowPane alignment="CENTER_LEFT">
+            <StackPane styleClass="header-icon"><FontIcon iconLiteral="fth-shopping-bag" iconSize="21"/></StackPane>
+            <VBox HBox.hgrow="ALWAYS" spacing="2">
+                <Label text="Nueva compra (DUA)" styleClass="title-4"/>
+                <Label text="Registra importaciones pendientes y aprueba su ingreso al inventario." styleClass="header-subtitle"/>
+            </VBox>
+            <Label fx:id="lblEstado" text="Lista para registrar" styleClass="chip-info"/>
+            <ExportarMenu fx:id="exportarReporte"/>
+            <Button text="Pendientes y aprobadas" onAction="#onHistorial" styleClass="btn-secundario">
+                <graphic><FontIcon iconLiteral="fth-clock" iconSize="14"/></graphic>
+            </Button>
+            <Button text="Nueva DUA" onAction="#onNuevaDua" styleClass="btn-secundario">
+                <graphic><FontIcon iconLiteral="fth-plus" iconSize="14"/></graphic>
+            </Button>
+            <Button text="Documentos DUA" onAction="#onDocumentosDua" styleClass="btn-secundario">
+                <graphic><FontIcon iconLiteral="fth-folder" iconSize="14"/></graphic>
+            </Button>
+        </ResponsiveFlowPane>
+
+        <ResponsiveFlowPane alignment="CENTER_LEFT">
+            <ToggleButton fx:id="btnSoloDocumentos" text="Solo documentos" toggleGroup="$modoDua" selected="true" onAction="#onCambiarModo" styleClass="btn-primario">
+                <graphic><FontIcon iconLiteral="fth-file-text" iconSize="14"/></graphic>
+            </ToggleButton>
+            <ToggleButton fx:id="btnModoCompra" text="Registrar productos" toggleGroup="$modoDua" onAction="#onCambiarModo" styleClass="btn-secundario">
+                <graphic><FontIcon iconLiteral="fth-package" iconSize="14"/></graphic>
+            </ToggleButton>
+        </ResponsiveFlowPane>
+
+        <ResponsiveMetricsPane fx:id="cabeceraCompra" styleClass="action-strip">
+            <VBox spacing="6">
+                <Label text="Proveedor" styleClass="field-label"/>
+                <ComboBox fx:id="cmbProveedor" promptText="Proveedor / importador" minWidth="0" maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="6">
+                <Label text="RUC" styleClass="field-label"/>
+                <TextField fx:id="txtRuc" promptText="RUC" editable="false" minWidth="0" maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="6">
+                <Label text="N° DUA" styleClass="field-label"/>
+                <TextField fx:id="txtDua" promptText="118-2026-10-009800" minWidth="0" maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="6">
+                <Label text="Fecha ingreso" styleClass="field-label"/>
+                <DatePicker fx:id="dpFecha" minWidth="0" maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="6">
+                <Label text="Tipo cambio" styleClass="field-label"/>
+                <TextField fx:id="txtTipoCambio" text="3.745" minWidth="0" maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="6">
+                <Label text="Margen %" styleClass="field-label"/>
+                <TextField fx:id="txtMargen" text="35" minWidth="0" maxWidth="Infinity"/>
+            </VBox>
+        </ResponsiveMetricsPane>
+    </VBox>
+
+    <VBox spacing="10" styleClass="tarjeta, detail-panel">
+        <padding><Insets top="16" right="18" bottom="16" left="18"/></padding>
+        <ResponsiveFlowPane alignment="CENTER_LEFT">
+            <FontIcon iconLiteral="fth-paperclip" iconSize="18" styleClass="color-acento"/>
+            <Label text="Documentos de importación" styleClass="title-5"/>
+            <Button text="Cargar desde PDF o imagen" onAction="#onLeerProductosPdf" styleClass="btn-secundario">
+                <graphic><FontIcon iconLiteral="fth-file-text" iconSize="14"/></graphic>
+            </Button>
+            <Button fx:id="btnTextoPdf" text="Texto extraído" onAction="#onTextoPdf" styleClass="btn-secundario"/>
+            <Button fx:id="btnGuardarDocumentosDua" text="Guardar documentos sin registrar stock" onAction="#onGuardarDocumentosDua" styleClass="btn-primario">
+                <graphic><FontIcon iconLiteral="fth-save" iconSize="14"/></graphic>
+            </Button>
+            <Button fx:id="btnOtroDocumentoDua" text="Otro DUA" onAction="#onOtroDocumentoDua" styleClass="btn-secundario"/>
+        </ResponsiveFlowPane>
+        <VBox fx:id="boxArchivosDua"/>
+        <Label fx:id="lblLecturaPdf" wrapText="true" maxWidth="Infinity" styleClass="text-subtle"/>
+    </VBox>
+
+    <TitledPane fx:id="editorProducto" text="Producto y lote" expanded="true">
+    <content><VBox fx:id="productoCompra" spacing="12" styleClass="tarjeta, detail-panel">
+        <padding><Insets top="16" right="18" bottom="16" left="18"/></padding>
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <FontIcon iconLiteral="fth-package" iconSize="18" styleClass="color-acento"/>
+            <Label text="Producto y lote" styleClass="title-5"/>
+            <Label text="Pendiente de aprobación" styleClass="chip-info"/>
+        </HBox>
+        <ResponsiveMetricsPane>
+            <VBox spacing="6">
+                <Label text="SKU" styleClass="field-label"/>
+                <TextField fx:id="txtSku" promptText="SKU" minWidth="0" maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="6">
+                <Label text="Producto" styleClass="field-label"/>
+                <TextField fx:id="txtProducto" promptText="Nombre del producto" minWidth="0" maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="6">
+                <Label text="Código de barras" styleClass="field-label"/>
+                <TextField fx:id="txtCodigoBarras" promptText="Código barras" minWidth="0" maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="6">
+                <Label text="Lote" styleClass="field-label"/>
+                <TextField fx:id="txtLote" promptText="Lote" minWidth="0" maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="6">
+                <Label text="Ubicación" styleClass="field-label"/>
+                <TextField fx:id="txtUbicacion" promptText="A-01-1" minWidth="0" maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="6">
+                <Label text="Cantidad" styleClass="field-label"/>
+                <TextField fx:id="txtCantidad" promptText="Cant." minWidth="0" maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="6">
+                <Label text="FOB USD" styleClass="field-label"/>
+                <TextField fx:id="txtFobUsd" promptText="FOB USD" minWidth="0" maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="6">
+                <Label text="Gastos USD" styleClass="field-label"/>
+                <TextField fx:id="txtGastosUsd" promptText="Gastos USD" minWidth="0" maxWidth="Infinity"/>
+            </VBox>
+        </ResponsiveMetricsPane>
+        <ResponsiveFlowPane alignment="CENTER_RIGHT">
+            <Button text="Limpiar línea" onAction="#onLimpiarLinea" styleClass="btn-secundario"/>
+            <Button fx:id="btnAgregarLinea" text="Agregar producto y lote" onAction="#onAgregarLinea" styleClass="btn-primario">
+                <graphic><FontIcon iconLiteral="fth-plus" iconSize="14"/></graphic>
+            </Button>
+        </ResponsiveFlowPane>
+    </VBox></content></TitledPane>
+
+    <ResponsiveSplitPane fx:id="resumenCompra" VBox.vgrow="ALWAYS">
+        <VBox spacing="10" HBox.hgrow="ALWAYS">
+            <TableView fx:id="tablaLineas" VBox.vgrow="ALWAYS" styleClass="tabla">
+                <columns>
+                    <TableColumn fx:id="colAcciones" text="Acciones" minWidth="100" prefWidth="100" maxWidth="100" sortable="false" reorderable="false" resizable="false"/>
+                    <TableColumn fx:id="colRevision" text="Datos" prefWidth="110"/>
+                    <TableColumn fx:id="colSku" text="SKU" prefWidth="95"/>
+                    <TableColumn fx:id="colProducto" text="Producto" prefWidth="220"/>
+                    <TableColumn fx:id="colLote" text="Lote" prefWidth="95"/>
+                    <TableColumn fx:id="colUbicacion" text="Ubicación" prefWidth="95"/>
+                    <TableColumn fx:id="colCantidad" text="Cant." prefWidth="70"/>
+                    <TableColumn fx:id="colFob" text="FOB USD" prefWidth="95"/>
+                    <TableColumn fx:id="colGastos" text="Gastos" prefWidth="85"/>
+                    <TableColumn fx:id="colLanded" text="Landed USD" prefWidth="105"/>
+                    <TableColumn fx:id="colPrecio" text="Precio sugerido" prefWidth="125"/>
+                </columns>
+                <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+            </TableView>
+            <ResponsiveFlowPane alignment="CENTER_RIGHT">
+                <Button fx:id="btnRegistrarCompra" text="Guardar DUA pendiente" onAction="#onRegistrarCompra" styleClass="btn-primario">
+                    <graphic><FontIcon iconLiteral="fth-save" iconSize="14"/></graphic>
+                </Button>
+            </ResponsiveFlowPane>
+        </VBox>
+
+        <VBox spacing="12" prefWidth="320" styleClass="tarjeta, detail-panel">
+            <Label fx:id="lblTituloTotales" text="Totales" styleClass="title-4"/>
+            <GridPane hgap="10" vgap="10">
+                <Label text="FOB USD" styleClass="text-subtle" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <Label fx:id="lblFobUsd" text="US$ 0.00" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <Label text="Gastos DUA" styleClass="text-subtle" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label fx:id="lblGastosUsd" text="US$ 0.00" style="-fx-font-weight: bold;" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <Label text="Landed USD" styleClass="text-subtle" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <Label fx:id="lblLandedUsd" text="US$ 0.00" style="-fx-font-weight: bold;" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <Label text="Landed PEN" styleClass="text-subtle" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <Label fx:id="lblLandedPen" text="S/ 0.00" style="-fx-font-weight: bold;" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                <Label text="Unidades" styleClass="text-subtle" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <Label fx:id="lblUnidades" text="0" style="-fx-font-weight: bold;" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+            </GridPane>
+            <Separator/>
+            <Label text="El stock se actualizará al aprobar la DUA." wrapText="true" styleClass="text-subtle"/>
+        </VBox>
+    </ResponsiveSplitPane>
+</VBox>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import com.ejemplo.crudpersona.ui.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox spacing="16" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.ejemplo.crudpersona.controller.ERQZCajaController"
+      prefWidth="1280" prefHeight="720" styleClass="view-root">
+
+    <ResponsiveSplitPane VBox.vgrow="ALWAYS">
+        <VBox spacing="16" HBox.hgrow="ALWAYS">
+            <VBox spacing="14" styleClass="tarjeta, module-header">
+                <ResponsiveFlowPane alignment="CENTER_LEFT">
+                    <StackPane styleClass="header-icon"><FontIcon iconLiteral="fth-dollar-sign" iconSize="21"/></StackPane>
+                    <VBox HBox.hgrow="ALWAYS" spacing="2">
+                        <Label text="Turno de caja" styleClass="title-4"/>
+                        <Label text="Controla apertura, ventas por medio de pago, arqueo y cierre." styleClass="header-subtitle"/>
+                    </VBox>
+                    <Label fx:id="lblEstadoCaja" text="Sin caja abierta" styleClass="chip-alerta"/>
+                </ResponsiveFlowPane>
+
+                <ResponsiveFlowPane alignment="CENTER_LEFT" styleClass="action-strip">
+                    <Label text="Monto de apertura" style="-fx-font-weight: bold;"/>
+                    <TextField fx:id="txtMontoApertura" text="200.00" prefWidth="140"/>
+                    <Button fx:id="btnAbrirCaja" text="Abrir caja" onAction="#onAbrirCaja" styleClass="btn-primario"/>
+                    <Button text="Actualizar" onAction="#onActualizar" styleClass="btn-secundario">
+                        <graphic><FontIcon iconLiteral="fth-refresh-cw" iconSize="14"/></graphic>
+                    </Button>
+                    <Button text="Reporte" onAction="#onVerReporte" styleClass="btn-secundario">
+                        <graphic><FontIcon iconLiteral="fth-file-text" iconSize="14"/></graphic>
+                    </Button>
+                    <ExportarMenu fx:id="exportarReporte"/>
+                </ResponsiveFlowPane>
+            </VBox>
+
+            <ResponsiveMetricsPane hgap="16" vgap="16">
+
+                <VBox spacing="10" styleClass="tarjeta, stat-card" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <Label text="Apertura" styleClass="text-subtle"/>
+                    <Label fx:id="lblApertura" text="S/ 0.00" styleClass="title-3"/>
+                </VBox>
+                <VBox spacing="10" styleClass="tarjeta, stat-card" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <Label text="Efectivo" styleClass="text-subtle"/>
+                    <Label fx:id="lblEfectivo" text="S/ 0.00" styleClass="title-3"/>
+                </VBox>
+                <VBox spacing="10" styleClass="tarjeta, stat-card" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                    <Label text="Yape / Plin" styleClass="text-subtle"/>
+                    <Label fx:id="lblYapePlin" text="S/ 0.00" styleClass="title-3"/>
+                </VBox>
+                <VBox spacing="10" styleClass="tarjeta, stat-card" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                    <Label text="Tarjeta" styleClass="text-subtle"/>
+                    <Label fx:id="lblTarjeta" text="S/ 0.00" styleClass="title-3"/>
+                </VBox>
+                <VBox spacing="10" styleClass="tarjeta, stat-card" GridPane.columnIndex="4" GridPane.rowIndex="0">
+                    <Label text="Mixto" styleClass="text-subtle"/>
+                    <Label fx:id="lblMixto" text="S/ 0.00" styleClass="title-3"/>
+                </VBox>
+            </ResponsiveMetricsPane>
+
+            <VBox spacing="18" styleClass="tarjeta, detail-panel">
+                <Label text="Arqueo y cierre" styleClass="title-4"/>
+                <ResponsiveFlowPane alignment="CENTER_LEFT" styleClass="action-strip">
+                    <Label text="Efectivo contado" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                    <TextField fx:id="txtEfectivoContado" text="0.00" prefWidth="160"/>
+                    <Label fx:id="lblCuadre" text="Pendiente" styleClass="chip-alerta"/>
+                </ResponsiveFlowPane>
+                <HBox spacing="4">
+                    <Label text="Esperado en caja:" styleClass="text-subtle"/>
+                    <Label fx:id="lblEsperado" text="S/ 0.00 (apertura más ventas en efectivo)" styleClass="text-subtle"/>
+                </HBox>
+                <HBox spacing="10">
+                    <Button fx:id="btnCerrarCaja" text="Cerrar caja" onAction="#onCerrarCaja" styleClass="btn-secundario" prefHeight="48" prefWidth="150"/>
+                    <Label text="Al cerrar la caja se bloquean nuevas ventas hasta abrir otro turno." styleClass="text-subtle"/>
+                </HBox>
+            </VBox>
+        </VBox>
+
+        <VBox spacing="14" prefWidth="420" styleClass="tarjeta, detail-panel">
+            <Label text="Historial de cierres" styleClass="title-4"/>
+            <TableView fx:id="tablaHistorial" VBox.vgrow="ALWAYS" styleClass="tabla">
+                <columns>
+                    <TableColumn fx:id="colFecha" text="Apertura" prefWidth="135"/>
+                    <TableColumn fx:id="colEstado" text="Estado" prefWidth="85"/>
+                    <TableColumn fx:id="colEsperado" text="Esperado" prefWidth="95"/>
+                    <TableColumn fx:id="colDiferencia" text="Dif." prefWidth="80"/>
+                </columns>
+                <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+            </TableView>
+        </VBox>
+    </ResponsiveSplitPane>
+</VBox>

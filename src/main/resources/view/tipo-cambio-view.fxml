@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import com.ejemplo.crudpersona.ui.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.ejemplo.crudpersona.controller.DBQPTipoCambioController"
+      spacing="16" prefWidth="1200" prefHeight="720" styleClass="view-root">
+
+    <!-- Cabecera -->
+    <ResponsiveFlowPane alignment="CENTER_LEFT" styleClass="tarjeta, module-header">
+        <padding><Insets top="12" right="16" bottom="12" left="16"/></padding>
+        <StackPane styleClass="header-icon"><FontIcon iconLiteral="fth-dollar-sign" iconSize="20"/></StackPane>
+        <VBox HBox.hgrow="ALWAYS" spacing="2">
+            <Label text="Tipo de cambio" styleClass="title-4"/>
+            <Label text="Ingresa el tipo de cambio manualmente y confirma cualquier recalculo de precios." styleClass="header-subtitle"/>
+        </VBox>
+    </ResponsiveFlowPane>
+    <VBox spacing="5">
+        <Label fx:id="lblFuenteCambio" text="Fuente" wrapText="true" styleClass="text-subtle"/>
+        <Label fx:id="lblEstadoCambio" text="" wrapText="true" styleClass="text-subtle"/>
+    </VBox>
+
+    <!-- Campo de nuevo tipo de cambio -->
+    <ResponsiveFlowPane alignment="CENTER_LEFT" styleClass="tarjeta, action-strip">
+        <padding><Insets top="12" right="16" bottom="12" left="16"/></padding>
+        <Label text="Dólar actual" style="-fx-font-weight: 500;"/>
+        <Label fx:id="lblTipoCambioActual" text="3.75" style="-fx-font-weight: bold; -fx-text-fill: -color-accent-emphasis;"/>
+        <Label text="-> nuevo" style="-fx-font-weight: 500;"/>
+        <TextField fx:id="txtNuevoTipoCambio" text="3.82" prefWidth="100" promptText="Nuevo TC"/>
+        <Button fx:id="btnGuardarManual" text="Guardar solo tasa" onAction="#onGuardarManual" styleClass="btn-secundario">
+            <graphic><FontIcon iconLiteral="fth-save" iconSize="14"/></graphic>
+        </Button>
+        <Button fx:id="btnAplicar" text="Aplicar y recalcular" onAction="#onAplicar" styleClass="btn-primario">
+            <graphic><FontIcon iconLiteral="fth-check" iconSize="14"/></graphic>
+        </Button>
+    </ResponsiveFlowPane>
+
+    <!-- Tabla de productos con recálculo -->
+    <TableView fx:id="tablaProductos" VBox.vgrow="ALWAYS" styleClass="tabla">
+        <columns>
+            <TableColumn fx:id="colProducto" text="Producto" prefWidth="300"/>
+            <TableColumn fx:id="colAnterior" text="Anterior" prefWidth="120"/>
+            <TableColumn fx:id="colNuevo" text="Nuevo" prefWidth="120"/>
+            <TableColumn fx:id="colDif" text="Dif." prefWidth="100"/>
+        </columns>
+        <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+    </TableView>
+</VBox>

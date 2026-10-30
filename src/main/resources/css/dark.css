@@ -1,0 +1,131 @@
+.root.theme-dark {
+    -app-bg: #111214;
+    -app-surface: #1b1c20;
+    -app-raised: #25272c;
+    -app-border: #3c4048;
+    -app-text: #f1f3f7;
+    -app-muted: #b0b8c6;
+    -fx-background-color: -app-bg;
+}
+.theme-dark.pagina, .theme-dark .pagina, .theme-dark .content-surface,
+.theme-dark .login-page, .theme-dark.login-page {
+    -fx-background-color: -app-bg;
+}
+.theme-dark .tarjeta, .theme-dark .sidebar, .theme-dark .sidebar-brand,
+.theme-dark .pagina-cabecera, .theme-dark .dashboard-hero, .theme-dark .kpi-primary,
+.theme-dark .login-shell, .theme-dark .custom-modal, .theme-dark .modal-summary,
+.theme-dark .app-dialog, .theme-dark.app-dialog, .theme-dark.comprobante-popup,
+.theme-dark .comprobante-popup {
+    -fx-background-color: -app-surface;
+    -fx-border-color: -app-border;
+}
+.theme-dark.dialog-pane, .theme-dark .dialog-pane, .theme-dark .choice-box {
+    -fx-background-color: -app-surface;
+    -fx-border-color: -app-border;
+    -fx-text-fill: -app-text;
+}
+.theme-dark .dialog-pane > .header-panel, .theme-dark.dialog-pane > .header-panel,
+.theme-dark .quick-row, .theme-dark .quick-icon, .theme-dark .ranking-index {
+    -fx-background-color: -app-raised;
+    -fx-border-color: -app-border;
+}
+.theme-dark .ranking-bar > .track { -fx-background-color: #383d46; }
+.theme-dark .login-page > .viewport { -fx-background-color: -app-bg; }
+.theme-dark .text-field:focused, .theme-dark .combo-box:focused, .theme-dark .date-picker:focused {
+    -fx-border-color: #82adff;
+}
+.theme-dark .action-strip, .theme-dark .detail-field, .theme-dark .total-panel,
+.theme-dark .sidebar-user-card, .theme-dark .header-icon, .theme-dark .kpi-icon,
+.theme-dark .top-chip, .theme-dark .search-pill, .theme-dark .stock-summary-card,
+.theme-dark .warehouse-editor, .theme-dark .warehouse-lot-summary, .theme-dark .warehouse-stat,
+.theme-dark .modal-section, .theme-dark .login-lock-badge, .theme-dark .chip-info,
+.theme-dark .role-pill {
+    -fx-background-color: -app-raised;
+    -fx-border-color: -app-border;
+}
+.theme-dark .label, .theme-dark .title-2, .theme-dark .title-3, .theme-dark .title-4,
+.theme-dark .detail-value, .theme-dark .total-amount, .theme-dark .money-value,
+.theme-dark .sidebar-brand-name, .theme-dark .sidebar-user-name, .theme-dark .dashboard-title,
+.theme-dark .kpi-value, .theme-dark .modal-title, .theme-dark .modal-summary .modal-money,
+.theme-dark .qty-label, .theme-dark .login-field-label {
+    -fx-text-fill: -app-text;
+}
+.theme-dark .text-subtle, .theme-dark .header-subtitle, .theme-dark .field-label,
+.theme-dark .sidebar-user-role, .theme-dark .nav-seccion, .theme-dark .sidebar-subtitle,
+.theme-dark .dialog-form-label, .theme-dark .kpi-label, .theme-dark .kpi-note,
+.theme-dark .dashboard-subtitle, .theme-dark .modal-summary .label {
+    -fx-text-fill: -app-muted;
+}
+.theme-dark .nav-item, .theme-dark .nav-item-btn { -fx-text-fill: -app-text; }
+.theme-dark .nav-item .ikonli-font-icon { -fx-icon-color: -app-muted; }
+.theme-dark .nav-item:hover, .theme-dark .nav-activo { -fx-background-color: #243654; }
+.theme-dark .nav-activo, .theme-dark .nav-activo .nav-item-btn,
+.theme-dark .color-acento, .theme-dark .modal-money-primary,
+.theme-dark .warehouse-location-title { -fx-text-fill: #82adff; }
+.theme-dark .nav-activo .ikonli-font-icon, .theme-dark .color-acento { -fx-icon-color: #82adff; }
+.theme-dark .text-field, .theme-dark .campo, .theme-dark .combo-box, .theme-dark .date-picker,
+.theme-dark .text-area, .theme-dark .text-area .content, .theme-dark .report-area {
+    -fx-background-color: -app-raised;
+    -fx-border-color: -app-border;
+    -fx-text-fill: -app-text;
+    -fx-prompt-text-fill: -app-muted;
+}
+.theme-dark .combo-box .list-cell { -fx-background-color: transparent; -fx-text-fill: -app-text; }
+.theme-dark .btn-secundario, .theme-dark .btn-icono, .theme-dark .qty-button,
+.theme-dark .sidebar-toggle {
+    -fx-background-color: -app-raised;
+    -fx-border-color: -app-border;
+    -fx-text-fill: -app-text;
+}
+.theme-dark .btn-secundario:hover, .theme-dark .btn-icono:hover, .theme-dark .sidebar-toggle:hover {
+    -fx-background-color: #343a46;
+    -fx-border-color: #82adff;
+}
+.theme-dark .tabla, .theme-dark .tabla .table-row-cell { -fx-background-color: -app-surface; -fx-border-color: -app-border; }
+.theme-dark .tabla .column-header, .theme-dark .tabla .column-header-background { -fx-background-color: -app-raised; }
+.theme-dark .tabla .table-cell { -fx-text-fill: -app-text; }
+.theme-dark .tabla .table-row-cell:selected { -fx-background-color: #283c5f; }
+.theme-dark .tabla .table-row-cell:hover { -fx-background-color: #30333b; }
+.theme-dark .separator .line { -fx-border-color: -app-border; }
+.theme-dark .bar-track, .theme-dark .slider .track { -fx-background-color: #383d46; }
+.theme-dark .scroll-bar .thumb { -fx-background-color: #555e6d; }
+.theme-dark .warehouse-free { -fx-background-color: -app-surface; -fx-border-color: -app-border; }
+.theme-dark .chip-exito, .theme-dark .top-chip-success { -fx-background-color: #153b2c; -fx-border-color: #30734f; -fx-text-fill: #86e3ad; }
+.theme-dark .chip-alerta { -fx-background-color: #42351b; -fx-border-color: #806631; -fx-text-fill: #f5cd76; }
+.theme-dark .chip-peligro { -fx-background-color: #47202e; -fx-border-color: #884157; -fx-text-fill: #ffa2bb; }
+.theme-dark .kpi-warning { -fx-text-fill: #f5cd76; }
+.theme-dark .kpi-danger { -fx-text-fill: #ffa2bb; }
+.theme-dark .validation-error { -fx-text-fill: #ffa2bb; }
+.theme-dark .text-field.campo-error { -fx-border-color: #ff6b8d; }
+.theme-dark .replenishment-surface { -fx-background-color: -app-surface; -fx-border-color: -app-border; }
+.theme-dark .replenishment-summary-text { -fx-fill: -app-text; }
+.theme-dark .replenishment-urgent { -fx-fill: #ff8ca9; }
+.theme-dark .replenishment-clear { -fx-fill: #86e3ad; }
+.theme-dark .replenishment-chart-button { -fx-background-color: #243654; -fx-border-color: #456496; -fx-text-fill: #a9c7ff; }
+.theme-dark .replenishment-chart-button .ikonli-font-icon { -fx-icon-color: #a9c7ff; }
+.theme-dark .replenishment-chart-button:hover { -fx-background-color: #2c446d; }
+.theme-dark .replenishment-table { -fx-background-color: transparent; -fx-border-color: transparent; }
+.theme-dark .replenishment-table .column-header-background,
+.theme-dark .replenishment-table .column-header,
+.theme-dark .replenishment-table .filler { -fx-background-color: transparent; }
+.theme-dark .replenishment-table .column-header .label { -fx-text-fill: -app-muted; }
+.theme-dark .replenishment-table .table-row-cell { -fx-border-color: transparent transparent -app-border transparent; }
+.theme-dark .replenishment-status-urgent { -fx-background-color: #47202e; -fx-border-color: #884157; -fx-text-fill: #ffa2bb; }
+.theme-dark .replenishment-status-ok { -fx-background-color: #153b2c; -fx-border-color: #30734f; -fx-text-fill: #86e3ad; }
+.theme-dark .replenishment-status-warning { -fx-background-color: #42351b; -fx-border-color: #806631; -fx-text-fill: #f5cd76; }
+.theme-dark .replenishment-chart .axis { -fx-tick-label-fill: -app-muted; }
+.theme-dark .replenishment-chart .chart-vertical-grid-lines { -fx-stroke: -app-border; }
+.theme-dark .inventory-view, .theme-dark .inventory-header, .theme-dark .inventory-detail { -fx-background-color: -app-surface; -fx-border-color: -app-border; }
+.theme-dark .inventory-chart-button { -fx-background-color: #243654; -fx-border-color: #456496; -fx-text-fill: #a9c7ff; }
+.theme-dark .inventory-table .column-header, .theme-dark .inventory-table .column-header-background, .theme-dark .inventory-table .filler { -fx-background-color: -app-surface; }
+.theme-dark .inventory-title, .theme-dark .inventory-cell-name, .theme-dark .inventory-cell-number,
+.theme-dark .inventory-detail-name, .theme-dark .inventory-detail-value { -fx-text-fill: -app-text; }
+.theme-dark .inventory-count, .theme-dark .inventory-cell-meta, .theme-dark .inventory-column-heading { -fx-text-fill: -app-muted; }
+.theme-dark .inventory-status.estado-ok { -fx-background-color: #153b2c; -fx-border-color: #30734f; -fx-text-fill: #86e3ad; }
+.theme-dark .inventory-status.estado-low { -fx-background-color: #42351b; -fx-border-color: #806631; -fx-text-fill: #f5cd76; }
+.theme-dark .inventory-status.estado-empty { -fx-background-color: #47202e; -fx-border-color: #884157; -fx-text-fill: #ffa2bb; }
+.theme-dark .replenishment-assign-link { -fx-text-fill: #a9c7ff; }
+.theme-dark .replenishment-assign-link .ikonli-font-icon { -fx-icon-color: #a9c7ff; }
+.theme-dark .replenishment-assign-link:hover { -fx-background-color: #243654; }
+.theme-dark .supplier-picker { -fx-background-color: -app-surface; -fx-border-color: -app-border; }
+.theme-dark .receipt-line { -fx-border-color: transparent transparent -app-border transparent; }

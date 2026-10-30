@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import com.ejemplo.crudpersona.ui.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.ejemplo.crudpersona.controller.ERQZDashboardController"
+            fitToWidth="true" hbarPolicy="NEVER" styleClass="pagina-scroll" prefWidth="1280" prefHeight="720">
+    <VBox spacing="28" styleClass="dashboard-page" minWidth="0">
+        <ResponsiveMetricsPane>
+
+            <VBox spacing="12" styleClass="tarjeta, kpi-card" minWidth="0" GridPane.columnIndex="0">
+                <Label text="Ventas de hoy" styleClass="kpi-label"/>
+                <Label fx:id="lblVentasHoy" text="S/ 0.00" styleClass="kpi-value" wrapText="true"/>
+            </VBox>
+            <VBox spacing="12" styleClass="tarjeta, kpi-card" minWidth="0" GridPane.columnIndex="1">
+                <Label text="Stock bajo" styleClass="kpi-label"/>
+                <Label fx:id="lblStockBajo" text="0" styleClass="kpi-value, kpi-warning"/>
+            </VBox>
+            <VBox spacing="12" styleClass="tarjeta, kpi-card" minWidth="0" GridPane.columnIndex="2">
+                <Label text="Sin stock" styleClass="kpi-label"/>
+                <Label fx:id="lblSinStock" text="0" styleClass="kpi-value, kpi-danger"/>
+            </VBox>
+            <VBox spacing="12" styleClass="tarjeta, kpi-card" minWidth="0" GridPane.columnIndex="3">
+                <Label text="Inventario (USD)" styleClass="kpi-label"/>
+                <Label fx:id="lblInventarioUSD" text="0" styleClass="kpi-value" wrapText="true"/>
+                <Label fx:id="lblInventarioPEN" text="S/ 0.00" styleClass="kpi-note" wrapText="true"/>
+            </VBox>
+        </ResponsiveMetricsPane>
+
+        <VBox spacing="24" styleClass="tarjeta, dashboard-panel">
+            <Label text="Más vendidos" styleClass="panel-title"/>
+            <GridPane hgap="20" vgap="22">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="28" minWidth="0"/>
+                    <ColumnConstraints percentWidth="64" minWidth="0" hgrow="ALWAYS"/>
+                    <ColumnConstraints percentWidth="8" minWidth="0" halignment="RIGHT"/>
+                </columnConstraints>
+                <Label fx:id="lblMasVendido1" text="Sin ventas registradas" styleClass="ranking-name" wrapText="true" GridPane.rowIndex="0"/>
+                <ProgressBar fx:id="barraMasVendido1" progress="0" maxWidth="Infinity" styleClass="ranking-bar" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                <Label fx:id="lblMasVendidoCant1" text="0" styleClass="ranking-value" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+
+                <Label fx:id="lblMasVendido2" text="-" styleClass="ranking-name" wrapText="true" GridPane.rowIndex="1"/>
+                <ProgressBar fx:id="barraMasVendido2" progress="0" maxWidth="Infinity" styleClass="ranking-bar" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <Label fx:id="lblMasVendidoCant2" text="0" styleClass="ranking-value" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+
+                <Label fx:id="lblMasVendido3" text="-" styleClass="ranking-name" wrapText="true" GridPane.rowIndex="2"/>
+                <ProgressBar fx:id="barraMasVendido3" progress="0" maxWidth="Infinity" styleClass="ranking-bar" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Label fx:id="lblMasVendidoCant3" text="0" styleClass="ranking-value" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+
+                <Label fx:id="lblMasVendido4" text="-" styleClass="ranking-name" wrapText="true" GridPane.rowIndex="3"/>
+                <ProgressBar fx:id="barraMasVendido4" progress="0" maxWidth="Infinity" styleClass="ranking-bar" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <Label fx:id="lblMasVendidoCant4" text="0" styleClass="ranking-value" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+            </GridPane>
+        </VBox>
+    </VBox>
+</ScrollPane>

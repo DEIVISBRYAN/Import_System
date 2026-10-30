@@ -1,0 +1,8 @@
+# Conserva intactos los documentos y recursos binarios.
+*.pdf binary
+*.docx binary
+*.xlsx binary
+*.png binary
+*.ico binary
+*.jpg binary
+*.jpeg binary

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:id="loginPage" fitToWidth="true" fitToHeight="true" hbarPolicy="NEVER"
+           fx:controller="com.ejemplo.crudpersona.controller.RPLCLoginController"
+           styleClass="pagina, login-page"
+           prefWidth="1100" prefHeight="720">
+
+    <StackPane>
+    <padding><Insets top="24" right="24" bottom="24" left="24"/></padding>
+    <HBox alignment="CENTER" minWidth="0" maxWidth="980" maxHeight="620" styleClass="login-shell">
+        <VBox fx:id="loginVisual" alignment="CENTER_LEFT" spacing="22" prefWidth="470" styleClass="login-visual">
+            <HBox alignment="CENTER_LEFT" spacing="14">
+                <ImageView fitWidth="64" fitHeight="64" preserveRatio="true" smooth="true">
+                    <image>
+                        <Image url="@../images/is-logo.png"/>
+                    </image>
+                </ImageView>
+                <VBox spacing="2">
+                    <Label text="IS · IMPORT SYSTEM" styleClass="login-brand-title" wrapText="true"/>
+                    <Label text="Gestión de Importaciones · ERP · POS" styleClass="login-brand-subtitle"/>
+                </VBox>
+            </HBox>
+
+            <VBox spacing="10">
+                <Label text="Compras, ventas e inventario" styleClass="login-hero-title" wrapText="true"/>
+                <Label text="Gestión de productos, importaciones DUA, motos SUNARP y almacenes." styleClass="login-hero-copy" wrapText="true"/>
+            </VBox>
+
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <VBox spacing="3" styleClass="login-mini-card" HBox.hgrow="ALWAYS">
+                    <Label text="FIFO" styleClass="login-mini-title"/>
+                    <Label text="Lotes y costos" styleClass="login-mini-text"/>
+                </VBox>
+                <VBox spacing="3" styleClass="login-mini-card" HBox.hgrow="ALWAYS">
+                    <Label text="SUNAT / DUA" styleClass="login-mini-title"/>
+                    <Label text="Comprobantes y motos" styleClass="login-mini-text"/>
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <VBox alignment="CENTER" spacing="22" minWidth="0" prefWidth="470" HBox.hgrow="ALWAYS" styleClass="login-card">
+            <HBox fx:id="loginCompactBrand" alignment="CENTER" spacing="10" visible="false" managed="false">
+                <Label text="IS · Import System" styleClass="title-4" wrapText="true"/>
+            </HBox>
+            <VBox alignment="CENTER" spacing="8">
+                <ImageView fitWidth="72" fitHeight="72" preserveRatio="true" smooth="true">
+                    <image>
+                        <Image url="@../images/is-logo.png"/>
+                    </image>
+                </ImageView>
+                <Label text="Bienvenido" styleClass="title-2"/>
+                <Label text="Ingresa tus credenciales para acceder al sistema" wrapText="true" styleClass="text-subtle"/>
+            </VBox>
+
+            <Label fx:id="lblError" text="" styleClass="chip-peligro" wrapText="true" maxWidth="Infinity" alignment="CENTER"/>
+            <Label fx:id="lblAccesoLocal" visible="false" managed="false" wrapText="true" maxWidth="Infinity" styleClass="text-subtle"/>
+
+            <VBox spacing="16" maxWidth="Infinity">
+                <VBox spacing="7">
+                    <Label text="Usuario" styleClass="login-field-label"/>
+                    <HBox alignment="CENTER_LEFT" styleClass="campo, login-field" spacing="10">
+                        <FontIcon iconLiteral="fth-user" iconSize="18" styleClass="text-muted"/>
+                        <TextField fx:id="txtUsername" promptText="Ingresa tu usuario" HBox.hgrow="ALWAYS" style="-fx-background-color: transparent; -fx-border-width: 0;"/>
+                    </HBox>
+                </VBox>
+
+                <VBox spacing="7">
+                    <Label text="Contraseña" styleClass="login-field-label"/>
+                    <HBox alignment="CENTER_LEFT" styleClass="campo, login-field" spacing="10">
+                        <FontIcon iconLiteral="fth-lock" iconSize="18" styleClass="text-muted"/>
+                        <PasswordField fx:id="txtPassword" promptText="••••••••" HBox.hgrow="ALWAYS" onAction="#onIngresar" style="-fx-background-color: transparent; -fx-border-width: 0;"/>
+                    </HBox>
+                </VBox>
+
+                <Button text="Ingresar al sistema" onAction="#onIngresar" maxWidth="Infinity" defaultButton="true" styleClass="btn-primario, login-submit" prefHeight="52">
+                    <graphic>
+                        <FontIcon iconLiteral="fth-arrow-right" iconSize="18"/>
+                    </graphic>
+                </Button>
+            </VBox>
+        </VBox>
+    </HBox>
+    </StackPane>
+</ScrollPane>

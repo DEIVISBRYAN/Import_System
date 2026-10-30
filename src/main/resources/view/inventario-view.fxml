@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import com.ejemplo.crudpersona.ui.ResponsiveFlowPane?>
+<?import com.ejemplo.crudpersona.ui.ExportarMenu?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.ejemplo.crudpersona.controller.DBQPInventarioController"
+      minWidth="0" minHeight="0" prefWidth="1100" prefHeight="620" styleClass="view-root, inventory-view">
+    <top>
+        <VBox spacing="14" styleClass="inventory-header">
+            <HBox spacing="14" alignment="CENTER_LEFT">
+                <TextField fx:id="txtBuscar" promptText="Buscar por nombre, lote o código" minWidth="0" HBox.hgrow="ALWAYS" onAction="#onFiltrar"/>
+                <Button text="Ver gráfico de stock" onAction="#onVerGrafico" styleClass="btn-secundario, inventory-chart-button">
+                    <graphic><FontIcon iconLiteral="fth-bar-chart-2" iconSize="17"/></graphic>
+                </Button>
+            </HBox>
+            <ResponsiveFlowPane alignment="CENTER_LEFT" hgap="12" vgap="8">
+                <Label fx:id="lblResumen" text="0 productos" styleClass="inventory-count"/>
+                <ComboBox fx:id="cmbFiltroEstado" prefWidth="140" minWidth="100" onAction="#onFiltrar"/>
+                <Button onAction="#onFiltrar" styleClass="btn-icono, inventory-icon-button">
+                    <graphic><FontIcon iconLiteral="fth-search" iconSize="16"/></graphic>
+                    <tooltip><Tooltip text="Buscar producto, SKU, código, lote o ubicación"/></tooltip>
+                </Button>
+                <Button onAction="#onLimpiar" styleClass="btn-icono, inventory-icon-button">
+                    <graphic><FontIcon iconLiteral="fth-x" iconSize="16"/></graphic>
+                    <tooltip><Tooltip text="Limpiar filtros"/></tooltip>
+                </Button>
+                <Button text="Nuevo producto" onAction="#onNuevoProducto" styleClass="btn-primario, inventory-command">
+                    <graphic><FontIcon iconLiteral="fth-plus" iconSize="15"/></graphic>
+                </Button>
+                <Button onAction="#onReporte" styleClass="btn-icono, inventory-icon-button">
+                    <graphic><FontIcon iconLiteral="fth-file-text" iconSize="16"/></graphic>
+                    <tooltip><Tooltip text="Reporte de inventario"/></tooltip>
+                </Button>
+                <ExportarMenu fx:id="exportarReporte"/>
+            </ResponsiveFlowPane>
+        </VBox>
+    </top>
+    <center>
+        <HBox spacing="14" minWidth="0" minHeight="0" styleClass="inventory-workspace">
+            <VBox spacing="10" minWidth="0" minHeight="0" HBox.hgrow="ALWAYS">
+                <TableView fx:id="tablaInventario" minWidth="0" minHeight="90" VBox.vgrow="ALWAYS" styleClass="tabla, inventory-table, fit-columns">
+                    <placeholder><Label text="No hay productos en este filtro." styleClass="text-subtle"/></placeholder>
+                    <columns>
+                        <TableColumn fx:id="colProducto" text="Producto" prefWidth="240" minWidth="88"/>
+                        <TableColumn fx:id="colLote" text="Lote" prefWidth="85" minWidth="68"/>
+                        <TableColumn fx:id="colUbicacion" text="Ubicación" prefWidth="85" minWidth="65"/>
+                        <TableColumn fx:id="colDisponible" text="Disp." prefWidth="60" minWidth="38"/>
+                        <TableColumn fx:id="colCosto" text="Costo USD" prefWidth="85" minWidth="50"/>
+                        <TableColumn fx:id="colPrecio" text="Precio S/" prefWidth="85" minWidth="55"/>
+                        <TableColumn fx:id="colEstado" text="Estado" prefWidth="105" minWidth="80"/>
+                    </columns>
+                    <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN"/></columnResizePolicy>
+                </TableView>
+                <ResponsiveFlowPane alignment="CENTER_RIGHT" hgap="8" vgap="8">
+                    <Button fx:id="btnVerDetalle" text="Ver detalle" onAction="#onVerDetalle" styleClass="btn-secundario, inventory-command">
+                        <graphic><FontIcon iconLiteral="fth-eye" iconSize="14"/></graphic>
+                    </Button>
+                    <Button fx:id="btnEditarProducto" text="Editar" onAction="#onEditarProducto" styleClass="btn-secundario, inventory-command">
+                        <graphic><FontIcon iconLiteral="fth-edit-2" iconSize="14"/></graphic>
+                    </Button>
+                    <Button fx:id="btnAjustarStock" text="Ajustar stock" onAction="#onAjustarStock" styleClass="btn-secundario, inventory-command">
+                        <graphic><FontIcon iconLiteral="fth-sliders" iconSize="14"/></graphic>
+                    </Button>
+                    <Button fx:id="btnAgregarLote" text="Agregar lote" onAction="#onAgregarLote" styleClass="btn-secundario, inventory-command">
+                        <graphic><FontIcon iconLiteral="fth-layers" iconSize="14"/></graphic>
+                    </Button>
+                </ResponsiveFlowPane>
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>

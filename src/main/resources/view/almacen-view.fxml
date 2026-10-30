@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import com.ejemplo.crudpersona.ui.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox spacing="16" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.ejemplo.crudpersona.controller.RPLCAlmacenController" prefWidth="1280" prefHeight="720" styleClass="view-root">
+
+    <VBox spacing="18" styleClass="tarjeta, workspace-card" VBox.vgrow="ALWAYS">
+        <padding><Insets top="28" right="32" bottom="28" left="32"/></padding>
+
+        <ResponsiveFlowPane alignment="CENTER_LEFT">
+            <StackPane styleClass="header-icon"><FontIcon iconLiteral="fth-home" iconSize="22"/></StackPane>
+            <VBox HBox.hgrow="ALWAYS" spacing="2">
+                <Label text="Almacén principal" styleClass="title-3"/>
+                <Label text="Ubica lotes por pasillo, estante y nivel. Los colores indican disponibilidad." styleClass="header-subtitle"/>
+            </VBox>
+            <Button text="Pasillo" onAction="#onAgregarPasillo" styleClass="btn-secundario">
+                <graphic><FontIcon iconLiteral="fth-plus" iconSize="14"/></graphic>
+            </Button>
+            <Label text="Niveles por estante" style="-fx-font-weight: bold;"/>
+            <HBox spacing="0">
+                <Button onAction="#onNivelMenos" styleClass="btn-secundario">
+                    <graphic><FontIcon iconLiteral="fth-minus" iconSize="14"/></graphic>
+                </Button>
+                <Label fx:id="lblNiveles" text="3" styleClass="chip-info"/>
+                <Button onAction="#onNivelMas" styleClass="btn-secundario">
+                    <graphic><FontIcon iconLiteral="fth-plus" iconSize="14"/></graphic>
+                </Button>
+            </HBox>
+        </ResponsiveFlowPane>
+
+        <ResponsiveFlowPane alignment="CENTER_LEFT" styleClass="action-strip">
+            <VBox spacing="3" styleClass="warehouse-stat">
+                <Label text="Ubicaciones" styleClass="text-subtle"/>
+                <Label fx:id="lblTotalUbicaciones" text="0" styleClass="title-5"/>
+            </VBox>
+            <VBox spacing="3" styleClass="warehouse-stat">
+                <Label text="Ocupadas" styleClass="text-subtle"/>
+                <Label fx:id="lblOcupadas" text="0" styleClass="title-5"/>
+            </VBox>
+            <VBox spacing="3" styleClass="warehouse-stat">
+                <Label text="Libres" styleClass="text-subtle"/>
+                <Label fx:id="lblLibres" text="0" styleClass="title-5"/>
+            </VBox>
+            <VBox spacing="3" styleClass="warehouse-stat">
+                <Label text="Críticas" styleClass="text-subtle"/>
+                <Label fx:id="lblCriticas" text="0" styleClass="title-5"/>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <ComboBox fx:id="cmbFiltroMapa" prefWidth="145" onAction="#onFiltrarMapa"/>
+            <TextField fx:id="txtBuscarUbicacion" promptText="Buscar ubicación, producto o lote" prefWidth="270" onAction="#onBuscarUbicacion"/>
+            <Button onAction="#onBuscarUbicacion" styleClass="btn-secundario">
+                <graphic><FontIcon iconLiteral="fth-search" iconSize="14"/></graphic>
+            </Button>
+            <Button text="Limpiar" onAction="#onLimpiarBusqueda" styleClass="btn-secundario"/>
+        </ResponsiveFlowPane>
+
+        <ResponsiveFlowPane alignment="CENTER_LEFT">
+            <HBox spacing="8" alignment="CENTER"><Region styleClass="legend-swatch, warehouse-ok"/><Label text="Con stock"/></HBox>
+            <HBox spacing="8" alignment="CENTER"><Region styleClass="legend-swatch, warehouse-low"/><Label text="Stock bajo"/></HBox>
+            <HBox spacing="8" alignment="CENTER"><Region styleClass="legend-swatch, warehouse-empty"/><Label text="Sin stock"/></HBox>
+            <HBox spacing="8" alignment="CENTER"><Region styleClass="legend-swatch, warehouse-free"/><Label text="Libre"/></HBox>
+            <Label text="Toca una celda para operar. Usa el buscador para ir directo al lote o producto." styleClass="text-subtle"/>
+        </ResponsiveFlowPane>
+
+        <ScrollPane fitToHeight="true" fitToWidth="true" minHeight="430" prefHeight="440" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;">
+            <HBox fx:id="boxPasillos" spacing="30" alignment="TOP_LEFT"/>
+        </ScrollPane>
+
+        <VBox spacing="14" styleClass="warehouse-editor">
+            <ResponsiveFlowPane alignment="CENTER_LEFT">
+                <Label text="Editar ubicación:" styleClass="title-5"/>
+                <Label fx:id="lblDetalleUbicacion" text="-" styleClass="warehouse-location-title"/>
+                <Label fx:id="lblSeleccion" text="Selecciona una ubicación" styleClass="text-subtle" HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnVaciar" text="Vaciar ubicación" onAction="#onVaciar" styleClass="btn-danger-soft" disable="true">
+                    <graphic><FontIcon iconLiteral="fth-trash-2" iconSize="14"/></graphic>
+                </Button>
+                <Button fx:id="btnEditarCantidad" text="Cambiar con asistente" onAction="#onEditarCantidad" styleClass="btn-secundario" disable="true">
+                    <graphic><FontIcon iconLiteral="fth-edit-2" iconSize="14"/></graphic>
+                </Button>
+                <Button fx:id="btnGuardarEdicion" text="Guardar cambios" onAction="#onGuardarEdicion" styleClass="btn-primario" disable="true">
+                    <graphic><FontIcon iconLiteral="fth-save" iconSize="14"/></graphic>
+                </Button>
+            </ResponsiveFlowPane>
+
+            <ResponsiveMetricsPane>
+                <VBox spacing="6" styleClass="detail-field" HBox.hgrow="ALWAYS">
+                    <Label text="Producto" styleClass="field-label"/>
+                    <Label fx:id="lblDetalleProducto" text="-" wrapText="true" maxWidth="Infinity" styleClass="detail-value"/>
+                </VBox>
+                <VBox spacing="6" styleClass="detail-field" HBox.hgrow="ALWAYS">
+                    <Label text="Lote" styleClass="field-label"/>
+                    <TextField fx:id="txtEditLote" promptText="Lote" editable="false"/>
+                </VBox>
+                <VBox spacing="6" styleClass="detail-field" HBox.hgrow="ALWAYS">
+                    <Label text="Cantidad (Stock)" styleClass="field-label"/>
+                    <TextField fx:id="txtEditCantidad" promptText="0"/>
+                </VBox>
+                <VBox spacing="6" styleClass="detail-field" HBox.hgrow="ALWAYS">
+                    <Label text="Ubicación destino" styleClass="field-label"/>
+                    <TextField fx:id="txtEditUbicacion" promptText="A-01-1"/>
+                </VBox>
+                <VBox spacing="6" styleClass="detail-field" HBox.hgrow="ALWAYS">
+                    <Label text="Estado" styleClass="field-label"/>
+                    <Label fx:id="lblDetalleEstado" text="-" maxWidth="Infinity" styleClass="detail-value"/>
+                </VBox>
+            </ResponsiveMetricsPane>
+
+            <HBox spacing="14">
+                <VBox spacing="8" HBox.hgrow="ALWAYS">
+                    <Label text="Historial de lotes" style="-fx-font-weight: bold;"/>
+                    <TableView fx:id="tablaHistorialLotes" styleClass="tabla, warehouse-history" prefHeight="150">
+                        <columns>
+                            <TableColumn fx:id="colHistProducto" text="Producto" prefWidth="260"/>
+                            <TableColumn fx:id="colHistLote" text="Lote" prefWidth="120"/>
+                            <TableColumn fx:id="colHistCantidad" text="Cant." prefWidth="90"/>
+                            <TableColumn fx:id="colHistInicial" text="Inicial" prefWidth="90"/>
+                        </columns>
+                        <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                    </TableView>
+                </VBox>
+                <VBox spacing="10" prefWidth="220">
+                    <Button fx:id="btnAsignar" text="Asignar lote aquí" onAction="#onAsignar" maxWidth="Infinity" styleClass="btn-secundario" disable="true">
+                        <graphic><FontIcon iconLiteral="fth-plus-circle" iconSize="14"/></graphic>
+                    </Button>
+                    <Button fx:id="btnMover" text="Mover mercadería" onAction="#onMover" maxWidth="Infinity" styleClass="btn-secundario" disable="true">
+                        <graphic><FontIcon iconLiteral="fth-move" iconSize="14"/></graphic>
+                    </Button>
+                </VBox>
+            </HBox>
+        </VBox>
+    </VBox>
+</VBox>

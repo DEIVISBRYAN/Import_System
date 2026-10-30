@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import com.ejemplo.crudpersona.ui.ResponsiveFlowPane?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.ejemplo.crudpersona.controller.ERQZMainController"
+            styleClass="pagina"
+            prefWidth="1280" prefHeight="800">
+
+    <!-- 1. MENÚ LATERAL IZQUIERDO PERMANENTE -->
+    <left>
+        <VBox fx:id="sidebar" styleClass="sidebar" prefWidth="306" spacing="10">
+            <!-- Cabecera de marca y botón para ocultar el menú -->
+            <HBox alignment="CENTER_LEFT" spacing="10" styleClass="sidebar-brand">
+                <ImageView fitWidth="38" fitHeight="38" preserveRatio="true" smooth="true">
+                    <image>
+                        <Image url="@../images/is-logo.png"/>
+                    </image>
+                </ImageView>
+                <VBox fx:id="boxMarca" HBox.hgrow="ALWAYS" minWidth="0" spacing="1">
+                    <Label fx:id="lblMarca" text="Import System" styleClass="sidebar-brand-name"/>
+                    <Label fx:id="lblMarcaSubtitulo" text="IS · IMPORTACIONES" styleClass="brand-subtitle"/>
+                </VBox>
+                <Button fx:id="btnToggleSidebar" onAction="#onToggleSidebar" styleClass="sidebar-toggle" accessibleText="Ocultar menú">
+                    <graphic><FontIcon iconLiteral="fth-chevron-left" iconSize="16"/></graphic>
+                    <tooltip><Tooltip text="Ocultar / mostrar menú"/></tooltip>
+                </Button>
+            </HBox>
+
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS" styleClass="sidebar-scroll">
+                <VBox spacing="12">
+                    <!-- Sección GENERAL -->
+                    <VBox fx:id="seccionGeneral" spacing="4">
+                        <Label text="GENERAL" styleClass="nav-seccion"/>
+                        <Button fx:id="btnNavDashboard" onAction="#onNavDashboard" text="Dashboard" styleClass="nav-item, nav-activo">
+                            <graphic><FontIcon iconLiteral="fth-grid" iconSize="16"/></graphic>
+                            <tooltip><Tooltip text="Métricas y balance general (Ctrl+1)"/></tooltip>
+                        </Button>
+                    </VBox>
+
+                    <!-- Sección VENTAS -->
+                    <VBox fx:id="seccionVentas" spacing="4">
+                        <Label text="VENTAS" styleClass="nav-seccion"/>
+                        <Button fx:id="btnNavNuevaVenta" onAction="#onNavNuevaVenta" text="Nueva venta" styleClass="nav-item">
+                            <graphic><FontIcon iconLiteral="fth-shopping-cart" iconSize="16"/></graphic>
+                            <tooltip><Tooltip text="Punto de Venta POS (Ctrl+2)"/></tooltip>
+                        </Button>
+                        <Button fx:id="btnNavVentas" onAction="#onNavVentas" text="Ventas" styleClass="nav-item">
+                            <graphic><FontIcon iconLiteral="fth-file-text" iconSize="16"/></graphic>
+                        </Button>
+                        <Button fx:id="btnNavCaja" onAction="#onNavCaja" text="Caja" styleClass="nav-item">
+                            <graphic><FontIcon iconLiteral="fth-dollar-sign" iconSize="16"/></graphic>
+                        </Button>
+                    </VBox>
+
+                    <!-- Sección ALMACÉN -->
+                    <VBox fx:id="seccionAlmacen" spacing="4">
+                        <Label text="ALMACÉN" styleClass="nav-seccion"/>
+                        <HBox fx:id="navItemInventario" alignment="CENTER_LEFT" styleClass="nav-item">
+                            <Button fx:id="btnNavInventario" onAction="#onNavInventario" text="Inventario" styleClass="nav-item-btn" HBox.hgrow="ALWAYS">
+                                <graphic><FontIcon iconLiteral="fth-package" iconSize="16"/></graphic>
+                            </Button>
+                            <Label fx:id="badgeInventario" text="2" styleClass="chip-peligro"/>
+                        </HBox>
+                        <Button fx:id="btnNavReporteStock" onAction="#onNavReporteStock" text="Reporte de stock (Gráfico)" styleClass="nav-item">
+                            <graphic><FontIcon iconLiteral="fth-bar-chart-2" iconSize="16"/></graphic>
+                        </Button>
+                        <Button fx:id="btnNavAlmacen" onAction="#onNavAlmacen" text="Almacén y ubicaciones" styleClass="nav-item">
+                            <graphic><FontIcon iconLiteral="fth-map-pin" iconSize="16"/></graphic>
+                        </Button>
+                        <HBox fx:id="navItemReposicion" alignment="CENTER_LEFT" styleClass="nav-item">
+                            <Button fx:id="btnNavReposicion" onAction="#onNavReposicion" text="Reposición" styleClass="nav-item-btn" HBox.hgrow="ALWAYS">
+                                <graphic><FontIcon iconLiteral="fth-refresh-cw" iconSize="16"/></graphic>
+                            </Button>
+                            <Label fx:id="badgeReposicion" text="4" styleClass="chip-peligro"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Sección COMPRAS -->
+                    <VBox fx:id="seccionCompras" spacing="4">
+                        <Label text="COMPRAS" styleClass="nav-seccion"/>
+                        <Button fx:id="btnNavNuevaCompra" onAction="#onNavNuevaCompra" text="Nueva compra (DUA)" styleClass="nav-item">
+                            <graphic><FontIcon iconLiteral="fth-shopping-bag" iconSize="16"/></graphic>
+                        </Button>
+                        <Button fx:id="btnNavProveedores" onAction="#onNavProveedores" text="Proveedores" styleClass="nav-item">
+                            <graphic><FontIcon iconLiteral="fth-users" iconSize="16"/></graphic>
+                        </Button>
+                        <Button fx:id="btnNavSunarp" onAction="#onNavSunarp" text="Motos y SUNARP" styleClass="nav-item">
+                            <graphic><FontIcon iconLiteral="fth-file-text" iconSize="16"/></graphic>
+                            <tooltip><Tooltip text="Expedientes internos: primera inscripcion y transferencia"/></tooltip>
+                        </Button>
+                    </VBox>
+
+                    <!-- Sección PRECIOS -->
+                    <VBox fx:id="seccionPrecios" spacing="4">
+                        <Label text="PRECIOS" styleClass="nav-seccion"/>
+                        <Button fx:id="btnNavTipoCambio" onAction="#onNavTipoCambio" text="Tipo de cambio" styleClass="nav-item">
+                            <graphic><FontIcon iconLiteral="fth-trending-up" iconSize="16"/></graphic>
+                        </Button>
+                    </VBox>
+
+                    <!-- Sección FACTURACIÓN -->
+                    <VBox fx:id="seccionFacturacion" spacing="4">
+                        <Label text="FACTURACIÓN" styleClass="nav-seccion"/>
+                        <HBox fx:id="navItemComprobantes" alignment="CENTER_LEFT" styleClass="nav-item">
+                            <Button fx:id="btnNavComprobantes" onAction="#onNavComprobantes" text="Comprobantes SUNAT" styleClass="nav-item-btn" HBox.hgrow="ALWAYS">
+                                <graphic><FontIcon iconLiteral="fth-send" iconSize="16"/></graphic>
+                            </Button>
+                            <Label fx:id="badgeComprobantes" text="2" styleClass="chip-alerta"/>
+                        </HBox>
+                    </VBox>
+                    <VBox fx:id="seccionAdmin" spacing="4">
+                        <Label text="ADMINISTRACIÓN" styleClass="nav-seccion"/>
+                        <Button fx:id="btnNavUsuarios" onAction="#onNavUsuarios" text="Usuarios y accesos" styleClass="nav-item">
+                            <graphic><FontIcon iconLiteral="fth-shield" iconSize="16"/></graphic>
+                        </Button>
+                    </VBox>
+                </VBox>
+            </ScrollPane>
+
+            <!-- Tarjeta inferior fija del usuario -->
+            <VBox styleClass="tarjeta, sidebar-user-card" spacing="8">
+                <HBox alignment="CENTER_LEFT" spacing="10" styleClass="sidebar-profile, top-action" onMouseClicked="#onTopUsuario">
+                    <Label fx:id="lblUserInitials" text="CM" styleClass="avatar-circulo"/>
+                    <VBox fx:id="boxUserDetails" HBox.hgrow="ALWAYS" minWidth="0" spacing="3">
+                        <Label fx:id="lblUserName" text="Carlos Mendoza" wrapText="true" styleClass="sidebar-user-name"/>
+                        <Label fx:id="lblUserRole" text="Administrador" wrapText="true" styleClass="sidebar-user-role"/>
+                    </VBox>
+                </HBox>
+                <FlowPane fx:id="userActions" hgap="8" vgap="8" alignment="CENTER_RIGHT" prefWrapLength="230">
+                    <Button onAction="#onMiPerfil" styleClass="btn-icono">
+                        <graphic><FontIcon iconLiteral="fth-user" iconSize="15"/></graphic>
+                        <tooltip><Tooltip text="Ver y editar mi perfil"/></tooltip>
+                    </Button>
+                    <Button fx:id="btnTema" onAction="#onToggleTheme" styleClass="btn-icono">
+                        <graphic><FontIcon iconLiteral="fth-moon" iconSize="15"/></graphic>
+                        <tooltip><Tooltip text="Cambiar tema"/></tooltip>
+                    </Button>
+                    <Button fx:id="btnSalir" onAction="#onCerrarSesion" styleClass="btn-icono">
+                        <graphic><FontIcon iconLiteral="fth-log-out" iconSize="14"/></graphic>
+                        <tooltip><Tooltip text="Cerrar sesión"/></tooltip>
+                    </Button>
+                </FlowPane>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- 2. CONTENIDO PRINCIPAL CON BARRA SUPERIOR DELGADA -->
+    <center>
+        <VBox spacing="0">
+            <!-- Barra Superior Delgada -->
+            <VBox spacing="8" styleClass="pagina-cabecera">
+                <ResponsiveFlowPane alignment="CENTER_LEFT">
+                    <Label fx:id="lblTituloPantalla" text="Dashboard" prefWidth="320" styleClass="title-3" wrapText="true" minWidth="0" maxWidth="Infinity"/>
+                    <HBox fx:id="btnTopBuscar" alignment="CENTER_LEFT" spacing="8" styleClass="search-pill, top-action" minWidth="190" prefWidth="205" onMouseClicked="#onTopBuscar">
+                        <FontIcon iconLiteral="fth-search" iconSize="14"/>
+                        <Label fx:id="lblSearchHint" text="Buscar... (Ctrl+K)" styleClass="text-subtle"/>
+                    </HBox>
+                    <Button fx:id="btnTopSalir" onAction="#onCerrarSesion" styleClass="btn-icono">
+                        <graphic><FontIcon iconLiteral="fth-log-out" iconSize="14"/></graphic>
+                        <tooltip><Tooltip text="Cerrar sesión"/></tooltip>
+                    </Button>
+                </ResponsiveFlowPane>
+                <ResponsiveFlowPane>
+
+                <HBox fx:id="btnTopUsuario" alignment="CENTER" spacing="8" styleClass="top-chip, top-action" onMouseClicked="#onTopUsuario">
+                    <FontIcon iconLiteral="fth-user" iconSize="14"/>
+                    <Label fx:id="lblTopUserName" text="Carlos Mendoza"/>
+                    <Label fx:id="lblTopUserRole" text="Administrador" styleClass="role-pill"/>
+                </HBox>
+
+                <!-- Chip de dólar del día -->
+                <HBox fx:id="btnTopDolar" alignment="CENTER" spacing="6" styleClass="top-chip, top-action" onMouseClicked="#onTopDolar">
+                    <FontIcon iconLiteral="fth-dollar-sign" iconSize="14"/>
+                    <Label fx:id="lblChipDolar" text="3.75"/>
+                </HBox>
+
+                <!-- Chip de estado de caja -->
+                <HBox fx:id="btnTopCaja" alignment="CENTER" spacing="6" styleClass="top-chip-success, top-action" onMouseClicked="#onTopCaja">
+                    <FontIcon iconLiteral="fth-check-circle" iconSize="14"/>
+                    <Label fx:id="lblChipCaja" text="Caja 1 abierta"/>
+                </HBox>
+
+                </ResponsiveFlowPane>
+            </VBox>
+
+            <!-- Contenedor dinámico donde se inyectan las pantallas modulares -->
+            <StackPane fx:id="centerContent" VBox.vgrow="ALWAYS" styleClass="content-surface">
+                <padding><Insets top="12" right="16" bottom="16" left="16"/></padding>
+            </StackPane>
+        </VBox>
+    </center>
+</BorderPane>

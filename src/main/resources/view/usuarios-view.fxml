@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import com.ejemplo.crudpersona.ui.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<ResponsiveSplitPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.ejemplo.crudpersona.controller.RPLCUsuariosController"
+      prefWidth="1280" prefHeight="720" styleClass="view-root">
+
+    <VBox spacing="14" styleClass="tarjeta, workspace-card" HBox.hgrow="ALWAYS">
+        <padding><Insets top="18" right="22" bottom="22" left="22"/></padding>
+        <ResponsiveFlowPane alignment="CENTER_LEFT">
+            <StackPane styleClass="header-icon"><FontIcon iconLiteral="fth-shield" iconSize="20"/></StackPane>
+            <VBox HBox.hgrow="ALWAYS" spacing="2">
+                <Label text="Control de accesos" styleClass="title-4"/>
+                <Label text="Administra roles y disponibilidad de usuarios del sistema." styleClass="header-subtitle"/>
+            </VBox>
+            <Label fx:id="lblResumen" text="0 usuarios" styleClass="chip-info"/>
+            <Button text="Nuevo usuario" onAction="#onNuevoUsuario" styleClass="btn-primario">
+                <graphic><FontIcon iconLiteral="fth-user-plus" iconSize="14"/></graphic>
+            </Button>
+        </ResponsiveFlowPane>
+
+        <TableView fx:id="tablaUsuarios" VBox.vgrow="ALWAYS" styleClass="tabla">
+            <columns>
+                <TableColumn fx:id="colUsuario" text="Usuario" prefWidth="140"/>
+                <TableColumn fx:id="colNombre" text="Nombre" prefWidth="260"/>
+                <TableColumn fx:id="colRol" text="Rol" prefWidth="260"/>
+                <TableColumn fx:id="colEstado" text="Estado" prefWidth="120"/>
+            </columns>
+            <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+        </TableView>
+
+        <ResponsiveFlowPane alignment="CENTER_RIGHT">
+            <Button text="Cambiar rol" onAction="#onCambiarRol" styleClass="btn-secundario">
+                <graphic><FontIcon iconLiteral="fth-user-check" iconSize="14"/></graphic>
+            </Button>
+            <Button text="Cambiar clave" onAction="#onCambiarClave" styleClass="btn-secundario">
+                <graphic><FontIcon iconLiteral="fth-key" iconSize="14"/></graphic>
+            </Button>
+            <Button text="Activar / desactivar" onAction="#onCambiarEstado" styleClass="btn-secundario">
+                <graphic><FontIcon iconLiteral="fth-power" iconSize="14"/></graphic>
+            </Button>
+        </ResponsiveFlowPane>
+    </VBox>
+
+    <VBox spacing="14" prefWidth="420" minWidth="390" styleClass="tarjeta, detail-panel">
+        <StackPane styleClass="header-icon"><FontIcon iconLiteral="fth-lock" iconSize="18"/></StackPane>
+        <Label text="Permisos del rol" styleClass="title-4"/>
+        <VBox spacing="6" styleClass="detail-field">
+            <Label text="Usuario" styleClass="field-label"/>
+            <Label fx:id="lblDetalleUsuario" text="-" wrapText="true" styleClass="detail-value"/>
+        </VBox>
+        <VBox spacing="6" styleClass="detail-field">
+            <Label text="Rol asignado" styleClass="field-label"/>
+            <Label fx:id="lblDetalleRol" text="-" wrapText="true" styleClass="detail-value"/>
+        </VBox>
+        <VBox spacing="6" styleClass="detail-field" VBox.vgrow="ALWAYS">
+            <Label text="Puede entrar a" styleClass="field-label"/>
+            <Label fx:id="lblDetallePermisos" text="-" wrapText="true" styleClass="detail-value"/>
+        </VBox>
+    </VBox>
+</ResponsiveSplitPane>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import com.ejemplo.crudpersona.ui.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.ejemplo.crudpersona.controller.DBQPReporteStockController"
+      spacing="16" prefWidth="1280" prefHeight="720" styleClass="view-root">
+
+    <VBox spacing="14" styleClass="tarjeta, module-header">
+        <padding><Insets top="16" right="18" bottom="16" left="18"/></padding>
+        <ResponsiveFlowPane alignment="CENTER_LEFT">
+            <StackPane styleClass="header-icon"><FontIcon iconLiteral="fth-bar-chart-2" iconSize="20"/></StackPane>
+            <VBox HBox.hgrow="ALWAYS" spacing="2">
+                <Label text="Reporte de stock" styleClass="title-4"/>
+                <Label text="Gráfico de disponibilidad conectado al inventario real." styleClass="header-subtitle"/>
+            </VBox>
+            <Button text="Actualizar" onAction="#onActualizar" styleClass="btn-secundario">
+                <graphic><FontIcon iconLiteral="fth-refresh-cw" iconSize="14"/></graphic>
+            </Button>
+            <ExportarMenu fx:id="exportarReporte"/>
+        </ResponsiveFlowPane>
+
+        <ResponsiveMetricsPane>
+            <VBox spacing="4" styleClass="stock-summary-card" HBox.hgrow="ALWAYS">
+                <Label text="Productos" styleClass="text-subtle"/>
+                <Label fx:id="lblTotalProductos" text="0" styleClass="money-value"/>
+            </VBox>
+            <VBox spacing="4" styleClass="stock-summary-card" HBox.hgrow="ALWAYS">
+                <Label text="Stock bajo" styleClass="text-subtle"/>
+                <Label fx:id="lblStockBajo" text="0" styleClass="money-value"/>
+            </VBox>
+            <VBox spacing="4" styleClass="stock-summary-card" HBox.hgrow="ALWAYS">
+                <Label text="Sin stock" styleClass="text-subtle"/>
+                <Label fx:id="lblSinStock" text="0" styleClass="money-value"/>
+            </VBox>
+        </ResponsiveMetricsPane>
+    </VBox>
+
+    <ResponsiveSplitPane VBox.vgrow="ALWAYS">
+        <VBox spacing="12" styleClass="tarjeta, workspace-card" HBox.hgrow="ALWAYS">
+            <Label text="Disponibilidad por producto" styleClass="title-4"/>
+            <BarChart fx:id="chartStock" legendVisible="false" animated="false" VBox.vgrow="ALWAYS">
+                <xAxis><CategoryAxis label="Producto"/></xAxis>
+                <yAxis><NumberAxis label="Stock"/></yAxis>
+            </BarChart>
+        </VBox>
+
+        <VBox spacing="12" prefWidth="430" minWidth="390" styleClass="tarjeta, detail-panel">
+            <Label text="Resumen" styleClass="title-4"/>
+            <TableView fx:id="tablaStock" VBox.vgrow="ALWAYS" styleClass="tabla">
+                <columns>
+                    <TableColumn fx:id="colProducto" text="Producto" prefWidth="160"/>
+                    <TableColumn fx:id="colSku" text="SKU" prefWidth="90"/>
+                    <TableColumn fx:id="colStock" text="Stock" prefWidth="70"/>
+                    <TableColumn fx:id="colMinimo" text="Mín." prefWidth="65"/>
+                    <TableColumn fx:id="colEstado" text="Estado" prefWidth="105"/>
+                </columns>
+                <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+            </TableView>
+        </VBox>
+    </ResponsiveSplitPane>
+</VBox>

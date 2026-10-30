@@ -1,0 +1,65 @@
+name: Publicar instalador Windows
+
+on:
+  push:
+    tags:
+      - 'v*-sqlite'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: instalador-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    permissions:
+      contents: write
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - name: Probar y compilar
+        run: |
+          mvn -B package
+          if ($LASTEXITCODE -ne 0) { throw 'Las pruebas o la compilacion fallaron.' }
+      - name: Crear el instalador con Java y SQLite
+        run: ./scripts/crear-instalador.ps1 -JavaHome $env:JAVA_HOME -SkipBuild
+      - name: Verificar la extraccion del instalador
+        run: |
+          $installer = (Resolve-Path 'output/releases/v1.1.1/Import_System_Setup.exe').Path
+          $folder = Join-Path $env:RUNNER_TEMP 'verificar-import-system'
+          $process = Start-Process -FilePath $installer -ArgumentList @('/verify',('"'+$folder+'"')) -WindowStyle Hidden -PassThru -Wait
+          if ($process.ExitCode -ne 0) { throw 'No se pudo verificar la extraccion del paquete.' }
+          if (-not (Test-Path -LiteralPath (Join-Path $folder 'VERIFICADO.txt'))) { throw 'Falta el resultado de verificacion.' }
+      - name: Crear ZIP, TAR y huellas SHA256
+        run: |
+          $out = Join-Path $PWD 'output/releases/v1.1.1'
+          Copy-Item -LiteralPath 'target/instalador-sqlite-1.1.1/payload.zip' -Destination (Join-Path $out 'Import_System_Windows_Portable.zip')
+          tar -czf (Join-Path $out 'Import_System_Windows_Portable.tar.gz') -C 'target/instalador-sqlite-1.1.1' GestionImportaciones
+          if ($LASTEXITCODE -ne 0) { throw 'Fallo la creacion de TAR.GZ.' }
+          $hashes = Get-ChildItem -LiteralPath $out -File | Where-Object Extension -ne '.txt' | Sort-Object Name | ForEach-Object {
+            (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLower() + '  ' + $_.Name
+          }
+          $hashes | Set-Content -LiteralPath (Join-Path $out 'SHA256SUMS.txt') -Encoding ascii
+      - name: Publicar las descargas
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          $tag = if ($env:GITHUB_REF_TYPE -eq 'tag') { $env:GITHUB_REF_NAME } else { 'v1.1.1-sqlite' }
+          $files = @(Get-ChildItem 'output/releases/v1.1.1' -File | ForEach-Object FullName)
+          gh release create $tag @files --target $env:GITHUB_SHA --title 'Import System 1.1.1 - Instalador Windows y SQLite' --notes-file '.github/RELEASE_NOTES.md' --draft
+          if ($LASTEXITCODE -ne 0) { throw 'No se pudo crear y cargar la version.' }
+          gh release edit $tag --draft=false --latest
+          if ($LASTEXITCODE -ne 0) { throw 'Los archivos estan cargados, pero falta publicar la version.' }
